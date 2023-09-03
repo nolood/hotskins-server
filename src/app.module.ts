@@ -1,9 +1,11 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { SequelizeModule } from '@nestjs/sequelize';
+import { Inventory } from './inventories/inventories.model';
+import { InventoriesModule } from './inventories/inventories.module';
 import { User } from './users/users.model';
 import { UsersModule } from './users/users.module';
-import { InventoriesModule } from './inventories/inventories.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   controllers: [],
@@ -19,11 +21,12 @@ import { InventoriesModule } from './inventories/inventories.module';
       username: process.env.POSTGRES_USER,
       password: process.env.POSTGRES_PASSWORD,
       database: process.env.POSTGRES_DB,
-      models: [User],
+      models: [User, Inventory],
       autoLoadModels: true,
     }),
     UsersModule,
     InventoriesModule,
+    AuthModule,
   ],
 })
 export class AppModule {}

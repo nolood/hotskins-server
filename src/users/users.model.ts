@@ -4,7 +4,6 @@ import { Column, Model, Table } from 'sequelize-typescript';
 interface UserCreationAttributes {
   username: string;
   password: string;
-  inventory: number;
 }
 
 @Table({ tableName: 'users' })
@@ -15,7 +14,7 @@ export class User extends Model<User, UserCreationAttributes> {
   username: string;
   @Column({ type: DataTypes.STRING, allowNull: false })
   password: string;
-  @Column({ type: DataTypes.INTEGER, unique: true, allowNull: false })
+  @Column({ type: DataTypes.INTEGER })
   inventory: number;
   @Column({ type: DataTypes.INTEGER, allowNull: false, defaultValue: 1000 })
   balance: number;
