@@ -8,7 +8,7 @@ interface UserCreationAttributes {
 }
 
 @Table({ tableName: 'users' })
-export class User extends Model<User, UserCreationAttributes> {
+export class Inventory extends Model<Inventory, UserCreationAttributes> {
   @Column({ type: DataTypes.INTEGER, unique: true, primaryKey: true, autoIncrement: true })
   id: number;
   @Column({ type: DataTypes.STRING, unique: true, allowNull: false })
