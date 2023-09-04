@@ -6,6 +6,8 @@ import { InventoriesModule } from './inventories/inventories.module';
 import { User } from './users/users.model';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
+import { SkinsModule } from './skins/skins.module';
+import { CratesModule } from './crates/crates.module';
 
 @Module({
   controllers: [],
@@ -27,6 +29,8 @@ import { AuthModule } from './auth/auth.module';
     UsersModule,
     InventoriesModule,
     AuthModule,
+    SkinsModule,
+    CratesModule,
   ],
 })
 export class AppModule {}
