@@ -10,9 +10,9 @@ interface UserCreationAttributes {
 export class User extends Model<User, UserCreationAttributes> {
   @Column({ type: DataTypes.INTEGER, unique: true, primaryKey: true, autoIncrement: true })
   id: number;
-  @Column({ type: DataTypes.STRING, unique: true, allowNull: false })
+  @Column({ type: DataTypes.STRING, unique: true })
   username: string;
-  @Column({ type: DataTypes.STRING, allowNull: false })
+  @Column({ type: DataTypes.STRING })
   password: string;
   @Column({ type: DataTypes.INTEGER })
   inventory: number;
