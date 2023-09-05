@@ -49,8 +49,8 @@ export class AuthService {
     throw new UnauthorizedException({ message: 'Неверный логин или пароль' });
   }
 
-  decodeToken(token: string) {
-    const decoded = this.jwtService.decode(token);
-    return decoded;
+  decodeToken(token: string): number {
+    const decoded: { id: number } = this.jwtService.decode(token) as { id: number };
+    return decoded.id;
   }
 }

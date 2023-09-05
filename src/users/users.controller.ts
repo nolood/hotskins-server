@@ -26,6 +26,8 @@ export class UsersController {
   @UseGuards(JwtAuthGuard)
   @Get('/health')
   getUser(@Headers('Authorization') authorizationHeader: string) {
-    return this.authService.decodeToken(authorizationHeader.replace('Bearer ', ''));
+    return this.usersRepository.getUser(
+      this.authService.decodeToken(authorizationHeader.replace('Bearer ', '')),
+    );
   }
 }
