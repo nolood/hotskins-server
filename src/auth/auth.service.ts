@@ -11,6 +11,8 @@ export class AuthService {
     private jwtService: JwtService,
   ) {}
 
+  private readonly secretKey = process.env.PRIVATE_KEY || 'EGORLOX';
+
   async login(dto: CreateUserDto) {
     const user = await this.validateUser(dto);
     return this.generateToken(user);
@@ -45,5 +47,10 @@ export class AuthService {
       return user;
     }
     throw new UnauthorizedException({ message: 'Неверный логин или пароль' });
+  }
+
+  decodeToken(token: string) {
+    const decoded = this.jwtService.decode(token);
+    return decoded;
   }
 }
