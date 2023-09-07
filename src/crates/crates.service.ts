@@ -46,4 +46,9 @@ export class CratesService {
     const crates = await this.crateRepository.findAll();
     return crates;
   }
+
+  async getCrateById(id: string) {
+    const crate = await this.crateRepository.findOne({ where: { id } });
+    return crate;
+  }
 }

@@ -1,4 +1,5 @@
-import { Controller, Get, Post } from '@nestjs/common';
+import { Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { CratesService } from './crates.service';
 
 @Controller('crates')
@@ -9,8 +10,15 @@ export class CratesController {
     return this.cratesRepository.createCrates();
   }
 
+  @UseGuards(JwtAuthGuard)
   @Get('/get')
   getAll() {
     return this.cratesRepository.getAllCrates();
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Get('/:id')
+  getCrateById(@Param('id') id: string) {
+    return this.cratesRepository.getCrateById(id);
   }
 }
