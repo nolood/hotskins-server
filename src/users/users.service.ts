@@ -75,5 +75,7 @@ export class UsersService {
     await user.update({
       balance: user.balance + skin.price,
     });
+
+    return user;
   }
 }

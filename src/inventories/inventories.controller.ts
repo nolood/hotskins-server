@@ -1,4 +1,4 @@
-import { Controller, Headers, Param, Post, UseGuards } from '@nestjs/common';
+import { Controller, Get, Headers, Param, Post, UseGuards } from '@nestjs/common';
 import { AuthService } from 'src/auth/auth.service';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { UsersService } from 'src/users/users.service';
@@ -14,7 +14,7 @@ export class InventoriesController {
 
   @UseGuards(JwtAuthGuard)
   @Post('/add/:id/crate/:crate')
-  async sellSkin(
+  async addSkin(
     @Headers('Authorization') authorizationHeader: string,
     @Param('id') skinId: string,
     @Param('crate') crateId: string,
@@ -25,5 +25,20 @@ export class InventoriesController {
       )
     ).id;
     return this.inventoryRepository.addSkin(userId, crateId, skinId);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Get('/get')
+  async getInventory(
+    @Headers('Authorization') authorizationHeader: string,
+    @Param('id') skinId: string,
+    @Param('crate') crateId: string,
+  ) {
+    const userId = (
+      await this.usersRepository.getUser(
+        this.authService.decodeToken(authorizationHeader.replace('Bearer ', '')),
+      )
+    ).id;
+    return this.inventoryRepository.getInventory(userId);
   }
 }

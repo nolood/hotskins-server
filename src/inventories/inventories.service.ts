@@ -29,4 +29,16 @@ export class InventoriesService {
 
     return inventory;
   }
+
+  async getInventory(userId: number) {
+    const inventory = await this.inventoryRepository.findOne({
+      where: { id: userId },
+    });
+
+    await inventory.update({
+      count: inventory.items.length,
+    });
+
+    return inventory;
+  }
 }
