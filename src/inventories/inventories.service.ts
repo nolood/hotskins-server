@@ -22,10 +22,20 @@ export class InventoriesService {
       throw new HttpException('Не найден контейнер или скин', HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    await inventory.update({
-      items: [...inventory.items, { ...skin, crate: crateId }],
-      summary: inventory.summary + skin.price,
-    });
+    if (inventory.items.find((item) => item.id === skinId)) {
+      inventory.update({
+        items: inventory.items.map((item) => {
+          if (item.id === skinId) {
+            return { ...item, count: item.count + 1 };
+          }
+          return item;
+        }),
+      });
+    } else {
+      inventory.update({
+        items: [...inventory.items, { ...skin, count: 1, crate: crateId }],
+      });
+    }
 
     return inventory;
   }
@@ -36,7 +46,8 @@ export class InventoriesService {
     });
 
     await inventory.update({
-      count: inventory.items.length,
+      count: inventory.items.reduce((acc, item) => acc + item.count, 0),
+      summary: inventory.items.reduce((acc, item) => acc + item.price * item.count, 0),
     });
 
     return inventory;

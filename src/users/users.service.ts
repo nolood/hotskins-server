@@ -61,7 +61,7 @@ export class UsersService {
       throw new HttpException('Скин не найден', HttpStatus.NOT_FOUND);
     }
 
-    const isHaveSkin = !!inventory.items.find((item) => item.id === skinId);
+    const isHaveSkin = inventory.items.find((item) => item.id === skinId);
 
     if (!isHaveSkin) {
       throw new HttpException('У вас нет этого скина', HttpStatus.NOT_FOUND);
@@ -69,7 +69,12 @@ export class UsersService {
 
     await inventory.update({
       summary: inventory.summary - skin.price,
-      items: inventory.items.filter((item) => item.id !== skinId),
+      items:
+        isHaveSkin.count > 1
+          ? inventory.items.map((item) =>
+              item.id === skinId ? { ...item, count: item.count - 1 } : item,
+            )
+          : inventory.items.filter((item) => item.id !== skinId),
     });
 
     await user.update({

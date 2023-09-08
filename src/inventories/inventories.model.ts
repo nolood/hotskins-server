@@ -19,6 +19,7 @@ export class Inventory extends Model<Inventory, InventoryCreationAttributes> {
     image: string;
     price: number;
     crate: string;
+    count: number;
   }>;
   @Column({ type: DataTypes.INTEGER, defaultValue: 0 })
   count: number;
