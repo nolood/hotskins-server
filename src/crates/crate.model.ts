@@ -10,7 +10,7 @@ export class Crate extends Model<Crate> {
   @Column({ type: DataTypes.STRING })
   type: string;
   @Column({ type: DataTypes.ARRAY(DataTypes.JSON) })
-  contains: Array<{ id: string; name: string; rarity: string; image: string }>;
+  contains: Array<{ id: string; name: string; rarity: string; image: string; price: number }>;
   @Column({ type: DataTypes.STRING })
   image: string;
   @Column({ type: DataTypes.INTEGER })
