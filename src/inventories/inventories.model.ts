@@ -11,7 +11,7 @@ export class Inventory extends Model<Inventory, InventoryCreationAttributes> {
   id: number;
   @Column({ type: DataTypes.INTEGER, unique: true })
   userId: number;
-  @Column({ type: DataTypes.ARRAY(DataTypes.JSON) })
+  @Column({ type: DataTypes.ARRAY(DataTypes.JSON), defaultValue: [] })
   items: Array<{
     id: string;
     name: string;
