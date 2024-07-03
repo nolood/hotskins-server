@@ -1,0 +1,14 @@
+version: '3.8'
+services:
+  pets-db:
+    container_name: hotskins-db
+    restart: always
+    image: postgres:15.4-alpine3.18
+    ports:
+      - "5445:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 1234
+      POSTGRES_DB: hotskins
+
+
